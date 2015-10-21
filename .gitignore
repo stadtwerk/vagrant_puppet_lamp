@@ -1,0 +1,28 @@
+#
+# .gitignore
+#
+# @copyright  Copyright (c) 2015 stadt.werk GmbH (http://stadtwerk.org)
+# @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+
+# Ignore system files.
+*.swp
+.DS_Store
+
+# Ignore eclipse directories.
+.externalToolBuilders/*
+.settings/*
+
+# Ignore the '.vagrant' directory.
+.vagrant/*
+
+# Ignore eclipse files.
+.project
+.buildpath
+
+# Ignore temporary packer directories.
+boxes/*/output-virtualbox-iso
+boxes/*/packer_cache
+
+# Ignore vagrant boxes.
+boxes/*/*.box

@@ -1,0 +1,38 @@
+#
+# .gitattributes
+#
+# @copyright  Copyright (c) 2015 stadt.werk GmbH (http://stadtwerk.org)
+# @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
+#
+
+# This overrides the core.autocrlf setting - http://git-scm.com/docs/gitattributes
+# Set default behaviour, in case users don't have core.autocrlf set.
+* text=auto
+
+# Declare files that will always have LF line endings on checkout.
+.gitignore text eol=lf
+.gitattributes text eol=lf
+*.php text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.js text eol=lf
+*.jade text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.html text eol=lf
+*.phtml text eol=lf
+*.tmpl text eol=lf
+*.dist text eol=lf
+*.md text eol=lf
+*.lock text eol=lf
+*.appcache text eol=lf
+*.htaccess text eol=lf
+*.svg text eol=lf
+*.pp text eol=lf
+*.sh text eol=lf
+*.bash text eol=lf
+*.sql text eol=lf
+*.bat text eol=lf
+*.ps1 text eol=lf
+*.properties text eol=lf
+Vagrantfile text eol=lf
