@@ -70,11 +70,13 @@ The [`./provisioning/puppet_apply.bash`](provisioning/puppet_apply.bash) applies
 
     sudo bash puppet_apply.bash
 
-
 ### Application
 
 All application development happens within the [`./application`](application/) directory. That directory is automatically synchronized from the host machine to the `/var/www/application` directory on the guest machine.
 
+### Database
+
+You can access MySQL at `10.0.0.42:3306` with the user name and password `root`.
 
 Shut down
 ---------
