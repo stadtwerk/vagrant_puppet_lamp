@@ -5,35 +5,56 @@
 # @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-class mysql
-{
+class mysql {
+
     # Configuration.
+    $mysql_root_user = 'root'
     $mysql_root_password = 'root'
-    $mysql_typo3_database = 'typo3'
- 
+
     # Install the mysql-server package.
-    package 
-    { 
+    package {
+
         'mysql-server':
             ensure  => latest,
     }
 
     # Ensure the mysql service is running.
-    service 
-    { 
+    service {
+
         'mysql':
             enable  => true,
             ensure  => running,
             require => Package['mysql-server'],
     }
+    
+    #
+    # Configurate the default my.cnf file.
+    #
+    #     augtool print /files/etc/mysql/my.cnf
+    #
+    augeas {
+
+        'my.cnf':
+            context => '/files/etc/mysql/my.cnf',
+            changes => 
+            [
+                "set target[.='mysqld']/bind-address 0.0.0.0",
+            ],
+            require => 
+            [
+                Package['mysql-server'],
+            ],
+            notify  => Service['mysql'],
+    }
 
     # Set the MySQL root user password.
-    exec 
-    { 
+    exec {
+
         'set mysql root password':
-            unless  => "mysqladmin -uroot -p$mysql_root_password status",
-            command => "mysqladmin -uroot password $mysql_root_password",
-            require => 
+            
+            command => "mysqladmin --user=\"${mysql_root_user}\" password \"${mysql_root_password}\"",
+            unless  => "mysqladmin --user=\"${mysql_root_user}\" --password=\"${mysql_root_password}\" status",
+            require =>
             [
                 Package['mysql-server'],
                 Service['mysql'],
@@ -41,21 +62,15 @@ class mysql
     }
     
     # Grant the MySQL root user all privileges from all locations.
-    exec 
-    { 
-        'grant root all privileges':
-            command => "mysql -uroot -p$mysql_root_password --execute=\"GRANT ALL PRIVILEGES ON *.* TO \'root\'@\'%\' IDENTIFIED BY \'$mysql_root_password\'\"",
-            unless  => "mysql -uroot -p$mysql_root_password --execute=\"SHOW GRANTS FOR \'root\'@\'%\'\"",
-            require => Exec['set mysql root password'],
-    }
-    
-    # Create the default typo3 database onlyif the database does not already exist.
-    exec
-    {
-        'create default typo3 database':
-            command => "mysql -uroot -p$mysql_root_password --execute=\"CREATE DATABASE $mysql_typo3_database CHARACTER SET utf8 COLLATE utf8_unicode_ci\"",
-            unless  => "mysql -uroot -p$mysql_root_password --execute=\"USE $mysql_typo3_database\"",
-            require => Exec['set mysql root password'],
-    }
+    exec {
 
+        'grant root all privileges':
+            command => "mysql --user=\"${mysql_root_user}\" \
+                              --password=\"${mysql_root_password}\" \
+                              --execute=\"GRANT ALL PRIVILEGES ON *.* TO \'${mysql_root_user}\'@\'%\' IDENTIFIED BY \'${mysql_root_password}\'\"",
+            unless  => "mysql --user=\"${mysql_root_user}\" \
+                              --password=\"${mysql_root_password}\" \
+                              --execute=\"SHOW GRANTS FOR \'${mysql_root_user}\'@\'%\'\"",
+            require => Exec['set mysql root password'],
+    }
 }

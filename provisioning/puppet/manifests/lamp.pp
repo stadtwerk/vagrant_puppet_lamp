@@ -29,6 +29,7 @@ class {
     [
         'bootstrap',
         'locale',
+        #'swap',
     ]:
         stage => 'first',
 }
@@ -38,17 +39,20 @@ class {
     [
         'environment',
         'common',
+        'htop',
+        'openssh',
     ]:
         stage => 'second',
 }
 
 # Run the main stage.
-include htop
-#include openssh
-#include apache
-#include php
-#include composer
-#include mysql
-#include typo3
-#include phpmyadmin
-#include imagemagick
+class {
+    [
+        'apache',
+        'php',
+        'mysql',
+        'composer',
+        'imagemagick',
+    ]:
+        stage => 'main',
+}

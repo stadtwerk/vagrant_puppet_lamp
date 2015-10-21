@@ -18,6 +18,7 @@ class common {
             'rsync',
             'unzip',
             'multitail',
+            'augeas-tools',
             'software-properties-common',
         ]:
             ensure  => latest,

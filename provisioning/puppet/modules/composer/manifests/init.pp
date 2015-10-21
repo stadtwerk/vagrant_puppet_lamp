@@ -5,25 +5,24 @@
 # @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-class composer 
-{
+class composer {
     
     # The composer version to install.
     $version = "1.0.0-alpha10"
 
     # Make sure the /home/vagrant/tmp directory exists.
-    file
-    {
+    file {
+
         '/home/vagrant/tmp':
             ensure => directory,
             owner  => 'vagrant',
             group  => 'vagrant',
-            mode   => 777,
+            mode   => '0777',
     }
 
     # Download a specific composer version.
-    exec 
-    {
+    exec {
+
         'download composer':
             command => "curl -sS https://getcomposer.org/installer | \
                         php -- --install-dir=/home/vagrant/tmp --filename=composer-${version}.phar --version=${version}",
@@ -37,8 +36,8 @@ class composer
     }
 
     # Remove existing composer unless it already is the specified version.
-    exec 
-    {
+    exec {
+
         'remove /usr/local/bin/composer':
             command => 'rm --force /usr/local/bin/composer',
             unless  => "bash -c \"if [ -f /usr/local/bin/composer ]; \
@@ -49,8 +48,8 @@ class composer
     }
     
     # Move the composer executable to /usr/local/bin.
-    exec 
-    {
+    exec {
+
         'move composer to /usr/local/bin':
             command => "mv /home/vagrant/tmp/composer-${version}.phar /usr/local/bin/composer",
             require => Exec['remove /usr/local/bin/composer'],

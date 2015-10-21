@@ -5,20 +5,11 @@
 # @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-class php 
-{
-
-    # Add Personal Package Archive (PPA) for PHP5 to APT source list.
-    exec 
-    { 
-        'add php repository and update sources':
-            command => 'add-apt-repository ppa:ondrej/php5-5.6 --yes && apt-get update',
-            unless  => 'apt-cache policy | grep --quiet http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu/',           
-    }
+class php {
 
     # Install PHP5 packages.
-    package 
-    {
+    package {
+
         [
             'php5', 
             'php5-cli', 
@@ -30,12 +21,11 @@ class php
             'libapache2-mod-php5',
          ]:
             ensure  => latest,
-            require => Exec['add php repository and update sources'],
     }
     
     # Configurate the default php.ini file.
-    augeas 
-    {
+    augeas {
+
         'php.ini':
             context => '/files/etc/php5/apache2/php.ini',
             changes => 

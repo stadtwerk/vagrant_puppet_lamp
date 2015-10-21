@@ -5,11 +5,11 @@
 # @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-class phpmyadmin 
-{
+class phpmyadmin {
+
     # Install the phpMyAdmin package.
-    package 
-    { 
+    package {
+
         'phpmyadmin':
             ensure  => present,
             require => 
@@ -21,8 +21,8 @@ class phpmyadmin
     }
 
     # Copy the phpmyadmin configuration file into the apache2 conf-available directory.
-    exec
-    { 
+    exec {
+
         'copy phpmyadmin.conf to /etc/apache/conf-available':
             command => 'cp "/etc/phpmyadmin/apache.conf" "/etc/apache2/conf-available/phpmyadmin.conf"',
             creates => '/etc/apache2/conf-available/phpmyadmin.conf',
@@ -34,8 +34,8 @@ class phpmyadmin
     }
 
     # Enable the phpmyadmin configuration.
-    file 
-    { 
+    file {
+
         '/etc/apache2/conf-enabled/phpmyadmin.conf':
             ensure  => link,
             target  => '/etc/apache2/conf-available/phpmyadmin.conf',
@@ -44,13 +44,13 @@ class phpmyadmin
     }
 
     # Replace the phpmyadmin database configuration file at "/etc/phpmyadmin/config-db.php".
-    file 
-    {
+    file {
+
         '/etc/phpmyadmin/config-db.php':
             ensure  => present,
             owner   => 'root',
             group   => 'root',
-            mode    => 640,
+            mode    => '0640',
             source  => 'puppet:///modules/phpmyadmin/config-db.php',
             require => Package['phpmyadmin'],
     }

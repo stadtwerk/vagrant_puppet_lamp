@@ -5,18 +5,18 @@
 # @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-class apache 
-{
+class apache {
+
     # Install the apache2 package.
-    package 
-    { 
+    package {
+        
         'apache2':
             ensure  => latest,
     }
     
     # Start the apache2 service.
-    service 
-    { 
+    service {
+
         'apache2':
             ensure  => running,
             enable  => true,
@@ -24,8 +24,8 @@ class apache
     }
 
     # Enable mod_rewrite by creating a symlink in the mods-enabled directoy.
-    file 
-    { 
+    file {
+
         '/etc/apache2/mods-enabled/rewrite.load':
             ensure  => link,
             target  => '/etc/apache2/mods-available/rewrite.load',
@@ -34,8 +34,8 @@ class apache
     }
 
     # Place the virtual hosts configuration file in "/etc/apache2/sites-available".
-    file 
-    {
+    file {
+
         '/etc/apache2/sites-available/vhosts.conf':
             ensure  => present,
             owner   => 'root',
@@ -46,8 +46,8 @@ class apache
     }
     
     # Enable the virtual hosts configuration by creating a symlink in the "/etc/apache2/sites-enabled" directoy.
-    file 
-    { 
+    file {
+
         '/etc/apache2/sites-enabled/vhosts.conf':
             ensure  => link,
             target  => '/etc/apache2/sites-available/vhosts.conf',

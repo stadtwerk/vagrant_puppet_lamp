@@ -5,12 +5,11 @@
 # @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-class imagemagick 
-{
+class imagemagick {
 
     # Install ImageMagick package.
-    package 
-    { 
+    package {
+
         'imagemagick':
             ensure  => latest,
     }

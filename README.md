@@ -22,6 +22,13 @@ The vagrant-cachier plugin caches common packages which reduces the provisioning
 
     vagrant plugin install vagrant-cachier
 
+### Add DNS entry to your hosts file
+
+Add the following DNS entry to the `hosts` file of your local machine:
+
+    10.0.0.42 local.application-a.de
+    10.0.0.42 local.application-b.de
+
 ### Clone the repository
 
 Clone this repository to a nice place on your machine via: 
@@ -37,11 +44,12 @@ Fire up your console at the location you cloned the repository to and create the
 
     vagrant up
 
-### Access the application
+### Access the applications
 
-When Vagrant is ready you can access the application at:
+When Vagrant is ready you can access the applications at:
 
-* http://10.0.0.42
+* http://local.application-a.de
+* http://local.application-b.de
 
 Development
 --------
@@ -52,7 +60,7 @@ The configuration of the `lamp-server` machine happens within the [`./provisioni
 
 **1. Bootstrap**
 
-The [`./provisioning/boostrap.bash`](provisioning/boostrap.bash) prepares the `lamp-server` machine to be provisioned with Puppet. It is executed once on the initial machine start up. It can be called manually with: 
+The [`./provisioning/bootsrap.bash`](provisioning/bootsrap.bash) prepares the `lamp-server` machine to be provisioned with Puppet. It is executed once on the initial machine start up. It can be called manually with: 
 
     sudo bash bootstrap.bash 
 
@@ -65,7 +73,7 @@ The [`./provisioning/puppet_apply.bash`](provisioning/puppet_apply.bash) applies
 
 ### Application
 
-All application development happens within the [`./application`](application/) directory. That directory is automatically synchronized from the host machine to the `/var/www` directory on the guest machine.
+All application development happens within the [`./application`](application/) directory. That directory is automatically synchronized from the host machine to the `/var/www/application` directory on the guest machine.
 
 
 Shut down

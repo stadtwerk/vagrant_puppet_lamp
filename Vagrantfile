@@ -76,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |configuration|
 
         # Synchronize folders between the host and the vagrant machine.
         lamp.vm.synced_folder './provisioning', '/home/vagrant/provisioning'
-        lamp.vm.synced_folder './application', '/var/www'
+        lamp.vm.synced_folder './application', '/var/www/application'
 
         # Execute the bootstrap script on provisioning.
         lamp.vm.provision :shell, :inline => 'bash /home/vagrant/provisioning/bootstrap.bash', keep_color: true

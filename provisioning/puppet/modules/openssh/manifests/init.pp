@@ -5,18 +5,18 @@
 # @license   http://creativecommons.org/licenses/by-nc-sa/4.0/
 #
 
-class openssh
-{
+class openssh {
+
     # Install the latest openssh-server packages.
-    package 
-    { 
+    package {
+
         'openssh-server':
             ensure  => latest,
     }
     
     # Ensure the SSH service is running.
-    service 
-    { 
+    service {
+
         'ssh':
             enable  => true,
             ensure  => running,
@@ -29,6 +29,7 @@ class openssh
     # @see http://www.openssh.com/cgi-bin/man.cgi?query=sshd_config
     #
     augeas {
+
         'configure sshd_config':
             context => '/files/etc/ssh/sshd_config',
             changes => 
