@@ -29,7 +29,7 @@ class {
     [
         'bootstrap',
         'locale',
-        #'swap',
+        'swap',
     ]:
         stage => 'first',
 }
