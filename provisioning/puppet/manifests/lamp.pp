@@ -53,6 +53,7 @@ class {
         'mysql',
         'composer',
         'imagemagick',
+        'phpmyadmin',
     ]:
         stage => 'main',
 }

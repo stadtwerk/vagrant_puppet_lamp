@@ -33,7 +33,7 @@ Add the following DNS entry to the `hosts` file of your local machine:
 
 Clone this repository to a nice place on your machine via: 
 
-    git clone git@github.com:stadtwerk/vagrant_puppet_lamp.git
+    git clone https://github.com/stadtwerk/vagrant_puppet_lamp.git
 
 Start up
 --------
@@ -76,7 +76,10 @@ All application development happens within the [`./application`](application/) d
 
 ### Database
 
-You can access MySQL at `10.0.0.42:3306` with the user name and password `root`.
+You can access MySQL at `10.0.0.42:3306` with the user name and password `root`. A phpMyAdmin installation is available at:
+
+* http://10.0.0.42/phpmyadmin/ (user name and password `root`)
+
 
 Shut down
 ---------
